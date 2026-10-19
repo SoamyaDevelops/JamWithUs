@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JamStream - High-Fidelity Music Jamming & Pure App Audio</title>
+  <meta name="description" content="Stream pure digital music from your favorite music app to friends with zero mic sound, studio-quality 48kHz stereo, ultra-low latency, and 4-digit room codes. Completely free.">
+  
+  <!-- Modern Clean Typography (No neon, pure studio feel) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="/" class="logo-brand">
+        <div class="logo-icon">
+          <!-- Studio Equalizer / Music Icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+        </div>
+        <div class="logo-text">
+          JamStream
+          <span class="logo-badge">Hi-Fi</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div id="liveIndicator" class="live-indicator">
+          <span class="indicator-dot"></span>
+          <span>Offline</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper">
+
+    <!-- ====================================================================
+         VIEW 1: LANDING & ROOM ACCESS
+         ==================================================================== -->
+    <div id="viewLanding">
+      <section class="hero-section">
+        <div class="hero-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Pure App Audio • Zero Mic Sound • 100% Free
+        </div>
+        <h1 class="hero-title">Jam Together with <span>Lossless Audio</span></h1>
+        <p class="hero-subtitle">
+          Stream crystal-clear sound directly from Spotify, YouTube Music, Apple Music, or local files.
+          No voice bleed, zero echo, ultra-low lag even on slow connections.
+        </p>
+      </section>
+
+      <!-- Action Cards (Host & Join) -->
+      <div class="actions-grid">
+        <!-- Host Card -->
+        <div class="action-card primary-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <!-- Broadcast Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+                <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+                <circle cx="12" cy="12" r="2"></circle>
+                <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+                <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">Start Jamming (Host)</h2>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Broadcast music to friends</span>
+            </div>
+          </div>
+          <p class="card-description">
+            Create a private jamming room with a random 4-digit code. Stream directly from your browser tab, music app, or lossless audio files.
+          </p>
+          <button id="btnCreateRoom" class="btn btn-primary btn-full">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Create Jam Room
+          </button>
+        </div>
+
+        <!-- Join Card -->
+        <div class="action-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <!-- Headphones Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">Join a Room (Listener)</h2>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Tune into a friend's stream</span>
+            </div>
+          </div>
+          <p class="card-description">
+            Enter the 4-digit room code to connect instantly. Multiple people can listen simultaneously with synchronized playback.
+          </p>
+
+          <div class="input-group">
+            <label class="input-label">Enter 4-Digit Code</label>
+            <div class="code-inputs-wrapper">
+              <input type="text" id="digit1" class="code-digit-input" maxlength="1" placeholder="•" autocomplete="off" />
+              <input type="text" id="digit2" class="code-digit-input" maxlength="1" placeholder="•" autocomplete="off" />
+              <input type="text" id="digit3" class="code-digit-input" maxlength="1" placeholder="•" autocomplete="off" />
+              <input type="text" id="digit4" class="code-digit-input" maxlength="1" placeholder="•" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="listenerName" class="text-input" placeholder="Your Name or Nickname (optional)" maxlength="20" />
+          </div>
+
+          <button id="btnJoinRoom" class="btn btn-secondary btn-full">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Connect & Listen
+          </button>
+        </div>
+      </div>
+
+      <!-- Feature Strip -->
+      <div class="features-strip">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+              <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+              <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="feature-title">Pure Music Audio</div>
+            <div class="feature-text">Captures raw digital sound from the music app. No mic noise or speech filters.</div>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div>
+            <div class="feature-title">Opus Hi-Fi 48kHz</div>
+            <div class="feature-text">True 2-channel stereo with inband Forward Error Correction for zero lag on slow internet.</div>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="feature-title">100% Free Forever</div>
+            <div class="feature-text">Zero cost, no paid accounts, zero servers to pay for. Runs directly on WebRTC peer-to-peer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW 2: ACTIVE JAM ROOM (Host & Listener)
+         ==================================================================== -->
+    <div id="viewRoom" class="room-container hidden">
+
+      <!-- Topbar Info -->
+      <div class="room-topbar">
+        <div class="room-identity">
+          <div class="room-code-tag">
+            <span class="room-code-label">Room Code</span>
+            <div class="room-code-value" id="roomCodeDisplay" title="Click to copy code">
+              ----
+              <button id="btnCopyCode" class="copy-mini-btn" title="Copy Room Code">Copy</button>
+            </div>
+          </div>
+
+          <div class="room-meta-pills">
+            <span id="roleBadge" class="peer-tag host">HOST</span>
+            <span id="peerCountBadge" class="meta-pill meta-pill-highlight">1 connected</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
+          <button id="btnCopyLink" class="btn btn-secondary btn-sm" title="Copy full invitation URL">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            Invite Link
+          </button>
+
+          <button id="btnShowQr" class="btn btn-secondary btn-sm" title="Show QR Code for Mobile Users">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            QR Code
+          </button>
+
+          <button id="btnLeaveRoom" class="btn btn-danger btn-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Leave
+          </button>
+        </div>
+      </div>
+
+      <!-- Autoplay Unlock Banner for Listeners -->
+      <div id="audioUnlockNotice" class="notice-box hidden">
+        <strong>Audio Ready!</strong> Your browser requires a quick click to start listening to the stream.
+        <button id="btnUnlockAudio" class="btn btn-primary btn-sm" style="margin-left: 0.75rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Unmute & Play Stream
+        </button>
+      </div>
+
+      <!-- Center Audio Stage & Visualizer -->
+      <div class="audio-stage">
+        <div class="stage-header">
+          <div class="stage-title-wrap">
+            <span class="stage-title">Studio Audio Deck</span>
+            <span id="audioSourceBadge" class="audio-source-badge">No Source Active</span>
+          </div>
+          <div>
+            <button id="btnVisualizerMode" class="btn btn-secondary btn-sm">Bars</button>
+          </div>
+        </div>
+
+        <!-- 60FPS Canvas Visualizer Deck -->
+        <div class="visualizer-canvas-wrap">
+          <canvas id="audioVisualizer"></canvas>
+
+          <div class="visualizer-overlay-info">
+            <span id="vTagSource" class="v-tag">Source: None</span>
+            <span id="vTagBitrate" class="v-tag">Opus: 320 kbps</span>
+            <span class="v-tag">48 kHz Stereo</span>
+          </div>
+
+          <div id="visualizerIdle" class="visualizer-idle-msg">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 2px;">Studio Audio Visualizer Idle</div>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">Choose a music app or play a track to start the frequency display</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage Controls Bar -->
+        <div class="stage-controls">
+          <div class="volume-control-wrap">
+            <div id="btnToggleMute" class="vol-icon" title="Toggle Mute">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+              </svg>
+            </div>
+            <input type="range" id="volumeSlider" class="vol-slider" min="0" max="1.5" step="0.01" value="1.0" />
+            <span id="volumeReadout" class="vol-readout">100%</span>
+          </div>
+
+          <!-- Host Controls Group -->
+          <div id="hostControlGroup" class="playback-buttons hidden">
+            <button id="btnChangeSource" class="btn btn-primary btn-sm">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Select Music Source
+            </button>
+
+            <select id="selectQuality" class="select-input" style="width: auto; padding: 0.45rem 0.75rem;" title="Audio Bitrate Quality Preset">
+              <option value="320000" selected>Studio (320 kbps)</option>
+              <option value="192000">Balanced (192 kbps)</option>
+              <option value="96000">Eco Mode (96 kbps + FEC)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary Subgrid (Connected Listeners & Diagnostic Stream Health) -->
+      <div class="room-subgrid">
+        <!-- Panel 1: Listeners List -->
+        <div class="sub-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Connected Session Peers
+            </h3>
+          </div>
+          <ul id="peerList" class="peer-list">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <!-- Panel 2: Live Stream Diagnostics -->
+        <div class="sub-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+              Stream Transmission Health
+            </h3>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-label">Latency / Ping</div>
+              <div id="statLatency" class="stat-value good">&lt; 20 ms</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Audio Bitrate</div>
+              <div id="statBitrate" class="stat-value">320 kbps</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Packet Loss</div>
+              <div id="statLoss" class="stat-value good">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Channels</div>
+              <div id="statChannels" class="stat-value">Stereo (2ch)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ====================================================================
+       MODAL 1: AUDIO SOURCE PICKER (FOR HOST)
+       ==================================================================== -->
+  <div id="modalSourceSelect" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Select Music Audio Source</h3>
+        <button id="btnCloseSourceModal" class="modal-close" title="Close">&times;</button>
+      </div>
+
+      <div class="notice-box">
+        <div style="font-weight: 700; color: var(--accent-amber); margin-bottom: 0.35rem;">🔒 How to stream ONLY music without notifications or other apps:</div>
+        <ol style="margin-left: 1.25rem; font-size: 0.84rem; line-height: 1.5; color: var(--text-secondary);">
+          <li>Open your music player (Spotify Web, YouTube Music, SoundCloud, etc.) in a browser tab.</li>
+          <li>In the popup, choose <strong>"Chrome Tab"</strong> and click your music player.</li>
+          <li>Check the <strong>"Also share audio"</strong> checkbox.</li>
+        </ol>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem;">
+          ✓ Only music from that app is captured • Screen video is discarded • Notifications & other apps are completely blocked.
+        </div>
+      </div>
+
+      <div class="source-selection-grid">
+        <div id="optShareApp" class="source-opt-card">
+          <div class="source-opt-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="source-opt-title">Music App / Tab</div>
+          <div class="source-opt-desc">Stream pure sound from Spotify, YouTube Music, or any app. Zero microphone leakage.</div>
+        </div>
+
+        <div id="dropZone" class="source-opt-card">
+          <div class="source-opt-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <div class="source-opt-title">High-Res Audio File</div>
+          <div class="source-opt-desc">Play and broadcast FLAC, MP3, WAV, or AAC directly from your device.</div>
+        </div>
+
+        <div id="optDemoSynth" class="source-opt-card" style="grid-column: 1 / -1;">
+          <div class="source-opt-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="source-opt-title">Studio Demo Beat (Instant 1-Click Audio Test)</div>
+          <div class="source-opt-desc">Synthesizes a live chill lo-fi chord progression in real-time. Test your room, stereo soundstage, and 60fps visualizer instantly.</div>
+        </div>
+      </div>
+      <input type="file" id="fileInput" accept="audio/*" class="hidden" />
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: QR CODE MODAL FOR MOBILE / SAME WIFI
+       ==================================================================== -->
+  <div id="modalQr" class="modal-backdrop">
+    <div class="modal-card" style="text-align: center;">
+      <div class="modal-header">
+        <h3 class="modal-title">Scan to Join on Phone</h3>
+        <button id="btnCloseQrModal" class="modal-close" title="Close">&times;</button>
+      </div>
+      <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem;">
+        Friends on the same Wi-Fi network can point their phone camera at this QR code to join instantly.
+      </p>
+      <div id="qrContainer" class="qr-code-display"></div>
+      <button class="btn btn-secondary btn-full" onclick="document.getElementById('modalQr').classList.remove('active')">Close</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Hidden Remote Audio Element for Listener WebRTC Playback -->
+  <audio id="remoteAudio" autoplay playsinline class="hidden"></audio>
+
+  <!-- Application Scripts -->
+  <script src="/js/qrcode.js"></script>
+  <script src="/js/visualizer.js"></script>
+  <script src="/js/audio-manager.js"></script>
+  <script src="/js/webrtc-room.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

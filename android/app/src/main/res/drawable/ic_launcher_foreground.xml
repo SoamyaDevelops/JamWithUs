@@ -1,0 +1,60 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Left Radiating Equalizer Wave -->
+    <path
+        android:strokeColor="#f59e0b"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M32,44 A18,18 0 0,0 32,64" />
+    <path
+        android:strokeColor="#f59e0b"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.6"
+        android:pathData="M26,38 A26,26 0 0,0 26,70" />
+
+    <!-- Right Radiating Equalizer Wave -->
+    <path
+        android:strokeColor="#f59e0b"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M76,44 A18,18 0 0,1 76,64" />
+    <path
+        android:strokeColor="#f59e0b"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.6"
+        android:pathData="M82,38 A26,26 0 0,1 82,70" />
+
+    <!-- Note Stem Left & Right -->
+    <path
+        android:strokeColor="#fbbf24"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M48,36 L64,32 L64,54 M48,36 L48,60" />
+
+    <!-- Note Top Beam -->
+    <path
+        android:fillColor="#fbbf24"
+        android:pathData="M47,34 L65,30 L65,35 L47,39 Z" />
+
+    <!-- Left Note Head -->
+    <path
+        android:fillColor="#f59e0b"
+        android:pathData="M43,62 A6,5 0 1,1 49,57 A6,5 0 1,1 43,62" />
+
+    <!-- Right Note Head -->
+    <path
+        android:fillColor="#f59e0b"
+        android:pathData="M59,56 A6,5 0 1,1 65,51 A6,5 0 1,1 59,56" />
+
+    <!-- Status Live Dot -->
+    <path
+        android:fillColor="#10b981"
+        android:pathData="M54,74m-2,0a2,2 0 1,1 4,0a2,2 0 1,1 -4,0" />
+</vector>

@@ -37,10 +37,18 @@ class WebRtcRoom {
     this.onHostDisconnected = null;
   }
 
-  connectSignaling() {
+  connectSignaling(customUrl = null) {
     return new Promise((resolve, reject) => {
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}`;
+      let wsUrl;
+      if (customUrl) {
+        wsUrl = customUrl.replace(/^http/, 'ws');
+      } else if (window.location.protocol === 'file:') {
+        const saved = localStorage.getItem('jam_server_url') || (window.location.port ? 'ws://localhost:3000' : 'ws://10.174.154.88:3000');
+        wsUrl = saved.replace(/^http/, 'ws');
+      } else {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        wsUrl = `${protocol}//${window.location.host}`;
+      }
 
       this.ws = new WebSocket(wsUrl);
 
