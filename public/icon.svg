@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Radial Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#1e2430" />
+      <stop offset="55%" stop-color="#12161f" />
+      <stop offset="100%" stop-color="#0a0c10" />
+    </radialGradient>
+
+    <!-- Metallic Rim Gradient -->
+    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#384252" />
+      <stop offset="50%" stop-color="#1e2430" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+
+    <!-- Studio Gold / Amber Accent Gradient -->
+    <linearGradient id="amberGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="30%" stop-color="#fbbf24" />
+      <stop offset="70%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <!-- Secondary Brass Gradient -->
+    <linearGradient id="brassGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Inner Shadow for Recessed Turntable Disc -->
+    <radialGradient id="innerDisc" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#161b24" />
+      <stop offset="85%" stop-color="#0e1118" />
+      <stop offset="100%" stop-color="#07090c" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base App Icon Rounded Square (Android Adaptive Icon Standard Squircle) -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bgGrad)" stroke="url(#rimGrad)" stroke-width="6" />
+
+  <!-- Concentric Vinyl / Sound Grooves -->
+  <circle cx="256" cy="256" r="195" fill="none" stroke="#252c3b" stroke-width="1.5" opacity="0.6" />
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#1f2533" stroke-width="1.5" opacity="0.7" />
+  <circle cx="256" cy="256" r="145" fill="none" stroke="#2a3344" stroke-width="1" opacity="0.5" />
+
+  <!-- Center Recessed Console Circle -->
+  <circle cx="256" cy="256" r="128" fill="url(#innerDisc)" stroke="#323c4e" stroke-width="2.5" />
+
+  <!-- Acoustic Radiating Equalizer Arcs (Left Channel) -->
+  <g stroke="url(#amberGold)" stroke-linecap="round" fill="none">
+    <!-- Inner Arc -->
+    <path d="M 175 210 A 95 95 0 0 0 175 302" stroke-width="6" opacity="0.4" />
+    <!-- Mid Arc -->
+    <path d="M 145 185 A 135 135 0 0 0 145 327" stroke-width="7" opacity="0.7" />
+    <!-- Outer Arc -->
+    <path d="M 115 160 A 175 175 0 0 0 115 352" stroke-width="8" opacity="1" filter="url(#softGlow)" />
+  </g>
+
+  <!-- Acoustic Radiating Equalizer Arcs (Right Channel) -->
+  <g stroke="url(#amberGold)" stroke-linecap="round" fill="none">
+    <!-- Inner Arc -->
+    <path d="M 337 210 A 95 95 0 0 1 337 302" stroke-width="6" opacity="0.4" />
+    <!-- Mid Arc -->
+    <path d="M 367 185 A 135 135 0 0 1 367 327" stroke-width="7" opacity="0.7" />
+    <!-- Outer Arc -->
+    <path d="M 397 160 A 175 175 0 0 1 397 352" stroke-width="8" opacity="1" filter="url(#softGlow)" />
+  </g>
+
+  <!-- Center Icon: Interlocking Musical Eighth Notes / Stream Symbol -->
+  <!-- Note Stems & Beam -->
+  <path d="M 235 170 L 295 152 L 295 240 M 235 170 L 235 260" 
+        fill="none" stroke="url(#amberGold)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+  
+  <!-- Top Angled Studio Crossbar -->
+  <polygon points="230,165 300,144 300,166 230,186" fill="url(#amberGold)" filter="url(#softGlow)" />
+
+  <!-- Left Note Head (Rotated Oval) -->
+  <ellipse cx="214" cy="268" rx="28" ry="21" transform="rotate(-25 214 268)" fill="url(#amberGold)" filter="url(#softGlow)" />
+
+  <!-- Right Note Head (Rotated Oval) -->
+  <ellipse cx="274" cy="248" rx="28" ry="21" transform="rotate(-25 274 248)" fill="url(#amberGold)" filter="url(#softGlow)" />
+
+  <!-- Subtle Hi-Fi Spec Status Point -->
+  <circle cx="256" cy="342" r="5" fill="#10b981" />
+  <circle cx="256" cy="342" r="9" fill="none" stroke="#10b981" stroke-width="1.5" opacity="0.5" />
+</svg>

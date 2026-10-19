@@ -1,0 +1,23 @@
+{
+  "name": "jam-stream",
+  "version": "1.0.0",
+  "description": "High-fidelity, zero-mic, ultra-low-latency music jamming app with 4-digit room codes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "jamming",
+    "webrtc",
+    "high-quality-audio",
+    "music-stream",
+    "zero-latency"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}
