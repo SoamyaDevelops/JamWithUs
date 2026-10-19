@@ -290,9 +290,11 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPeerList([{ name: 'Host Streamer', id: 'host', state: 'connected' }]);
     }
 
-    // Update URL query string without reloading page
-    const newUrl = `${window.location.origin}${window.location.pathname}?room=${code}`;
-    window.history.pushState({ path: newUrl }, '', newUrl);
+    // Update URL query string without reloading page (only on http/https)
+    if (window.location.protocol !== 'file:') {
+      const newUrl = `${window.location.origin}${window.location.pathname}?room=${code}`;
+      window.history.pushState({ path: newUrl }, '', newUrl);
+    }
 
     // Initial canvas sizing
     visualizer.handleResize();
@@ -317,8 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
     liveIndicator.classList.remove('active');
     audioUnlockNotice.classList.add('hidden');
 
-    // Remove room param from URL
-    window.history.pushState({}, '', window.location.pathname);
+    // Remove room param from URL (only on http/https)
+    if (window.location.protocol !== 'file:') {
+      window.history.pushState({}, '', window.location.pathname);
+    }
     showToast('Left jam room', 'info');
   }
 
@@ -508,7 +512,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnCopyLink.addEventListener('click', () => {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?room=${webrtcRoom.roomCode}`;
+    const origin = (window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null')
+      ? 'http://10.174.154.88:3000'
+      : window.location.origin;
+    const shareUrl = `${origin}?room=${webrtcRoom.roomCode}`;
     navigator.clipboard.writeText(shareUrl).then(() => {
       showToast('Invite link copied! Send it to your friends.', 'success');
     });
@@ -516,7 +523,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // QR Code Modal
   btnShowQr.addEventListener('click', () => {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?room=${webrtcRoom.roomCode}`;
+    const origin = (window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null')
+      ? 'http://10.174.154.88:3000'
+      : window.location.origin;
+    const shareUrl = `${origin}?room=${webrtcRoom.roomCode}`;
     modalQr.classList.add('active');
     new QRCode(qrContainer, {
       text: shareUrl,

@@ -6,11 +6,15 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.webkit.*
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : ComponentActivity() {
 
@@ -20,6 +24,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Status bar & navigation bar styling (studio dark theme with light icons)
+        window.statusBarColor = Color.parseColor("#0b0d11")
+        window.navigationBarColor = Color.parseColor("#0b0d11")
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        insetsController.isAppearanceLightStatusBars = false
+        insetsController.isAppearanceLightNavigationBars = false
+
         // Request audio permissions for WebRTC
         requestAppPermissions()
 
@@ -28,7 +39,6 @@ class MainActivity : ComponentActivity() {
             settings.apply {
                 javaScriptEnabled = true
                 domStorageEnabled = true
-                databaseEnabled = true
                 mediaPlaybackRequiresUserGesture = false
                 allowFileAccess = true
                 allowContentAccess = true
@@ -43,6 +53,11 @@ class MainActivity : ComponentActivity() {
                         request.grant(request.resources)
                     }
                 }
+
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                    Log.d("JamStreamWeb", "${consoleMessage.message()} -- line ${consoleMessage.lineNumber()} of ${consoleMessage.sourceId()}")
+                    return true
+                }
             }
 
             webViewClient = object : WebViewClient() {
@@ -53,6 +68,14 @@ class MainActivity : ComponentActivity() {
         }
 
         setContentView(webView)
+
+        // Apply window insets to avoid content overlapping with the phone status bar or notch
+        ViewCompat.setOnApplyWindowInsetsListener(webView) { view, insets ->
+            val statusBarTop = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            val navBarBottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            view.setPadding(0, statusBarTop, 0, navBarBottom)
+            insets
+        }
 
         // Handle back button inside WebView
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
